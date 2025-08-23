@@ -1,0 +1,11 @@
+id,first_name,last_name,email,signup_date,amount_spent,country_code
+1001,John ,Doe,john.doe@example.com,2023-11-15,250.50,US
+1002,maria,Gonzalez,maria.gonzalez.com,2024-01-09,125.00,CO
+1003,Akira,Sato,akira.sato@example.com,2023-06-21,89.99,JP
+1004,Aisha,Khan,aisha.khan@example.com,2025-02-03,430.20,AE
+1005,Lucas,Silva,lucas.silva@example.com,2022-09-12,0.00,BR
+1006,Emma,Smith,emma.smith@example.com,2024-07-30,319.75,GB
+1007,Chen,Wei,chen.wei@example.com,2023-12-05,58.40,CN
+1008,Sofia,Martinez,sofia.martinez@example.com,2025-03-18,1020.00,AR
+1009,Noah,Johnson,noah.johnson@example.com,2024-05-27,15.99,CA
+1010,Priya,Patel,priya.patel@example.com,2022-11-02,775.30,IN
