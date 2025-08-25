@@ -1,78 +1,4 @@
-# PHP 8 + Composer with Docker
-
-This is a minimal Docker-based setup for running PHP 8 with Composer using plain `docker run`—no Docker Compose.
-
----
-
-## 🚀 Features
-
-- PHP 8.2 (CLI)
-- Composer for dependency management
-
----
-
-## 🛠 Requirements
-
-- [Docker](https://www.docker.com/)
-
----
-
-## ⚙️ Setup & Usage
-
-1. **Build the Docker image:**
-
-   ```bash
-   docker build -t php-transform .
-   ```
-
-2. **Use Composer inside the container:**
-
-   To install packages:
-   ```bash
-   docker run --rm -it -v "$PWD":/app -w /app php-transform composer require vendor/package
-   ```
-
----
-
-## 📦 Installing PHP Extensions
-
-If you need to install additional PHP libraries (e.g., `pdo`, `mbstring`, etc.), modify the `Dockerfile` like so:
-
-```Dockerfile
-RUN docker-php-ext-install pdo pdo_mysql
-```
-
-Then rebuild the image:
-
-```bash
-docker build -t php-transform .
-```
-
----
-
-## 🧼 Cleaning Up
-
-Docker automatically cleans up after the container runs using `--rm`.
-
-To remove the Docker image when you're done:
-
-```bash
-docker rmi php-transform
-```
-
----
-
-## 🧪 Senior PHP Challenge: CSV to JSON Data Transformer
-
-### Overview
-
-You are tasked with building a PHP CLI application that:
-
-- Reads a large CSV file with user data.
-- Applies a series of data transformations.
-- Writes the transformed data efficiently to a JSON file.
-
----
+**Author:** Juan David Gonzalez Revelo
 
 ### Requirements
 
@@ -106,24 +32,27 @@ You are tasked with building a PHP CLI application that:
 
 ---
 
-### Technical Expectations
+## Description:
+A complete solution for the challenge was implemented: a CLI was added in `transform.php` that uses PSR-4 autoloading (`namespace App`) and three main classes under src/:
+- `CsvUserReader` (streaming reader using a Generator to avoid loading the entire CSV into memory).
+- `UserTransformer` (normalizes names, validates emails, converts signup_date to ISO-8601 UTC, rounds amount_spent and filters values < 10, maps country_code using countries.json, and computes loyalty_level).
+- `JsonStreamWriter` (streams an output JSON array, creating the file if it doesn’t exist).
 
-- Use PHP 8+ features (typed properties, union types, constructor promotion, readonly, match, nullsafe operator, etc.).
-- Follow SOLID principles and clean OOP design.
-- Handle malformed input gracefully.
-- Use strict typing.
-- Avoid loading entire files into memory.
-- Unit tests for transformation classes.
+The solution uses PHP 8 strict typing, exception handling for read/write errors, and keeps memory usage low for large files.
 
----
+Unit tests are in `UserTransformerTest.php` and cover key cases: valid row, invalid email, low amount, invalid date, and country fallback. The assertions check normalized values, rounding, and the loyalty_level logic; date validation uses a regular expression that ignores the time component to avoid failures due to timezone differences.
 
-### Bonus (Optional)
+To run the tests: install PHPUnit as a development dependency and regenerate the autoloader, then run PHPUnit.
 
-- CLI options to specify input/output files.
-- Use advanced PHP 8 features like Fibers, WeakMap, Attributes, Enums.
-- Use composer packages to simplify the work.
 
----
+```bash
+composer require --dev phpunit/phpunit
+composer dump-autoload
+
+vendor/bin/phpunit tests/UserTransformerTest.php
+
+```
+
 
 ### 🏃‍♂️ How to Run the CLI Script
 
@@ -139,5 +68,3 @@ You are tasked with building a PHP CLI application that:
     php-transform \
     php src/bin/transform.php --input=/app/input.csv --output=/app/output.json
    ```
-
-3. Check `output.json` for the transformed data.
