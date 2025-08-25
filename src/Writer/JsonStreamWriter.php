@@ -17,11 +17,11 @@ class JsonStreamWriter
 
     public function open(): void
     {
-        // Si el archivo no existe, lo crea automáticamente con 'w'.
-        // Si no se puede crear, lanza excepción.
+        // If the file doesn't exist, it's automatically created with 'w'.
+        // If it can't be created, an exception is thrown.
         $this->handle = fopen($this->file, 'w');
         if ($this->handle === false) {
-            throw new \RuntimeException("No se pudo crear el archivo de salida: {$this->file}");
+            throw new \RuntimeException("The output file could not be created: {$this->file}");
         }
         fwrite($this->handle, '[');
     }

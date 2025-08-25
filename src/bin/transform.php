@@ -17,7 +17,7 @@ $outputFile = $options['output'] ?? 'output.json';
 $countriesFile = __DIR__ . '/../countries.json';
 
 // Load country codes
-// $countries = json_decode(file_get_contents($countriesFile), true);
+
 try {
     $json = file_get_contents($countriesFile);
     if ($json === false) {
